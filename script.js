@@ -6,41 +6,49 @@ const discount = document.querySelector(".discount__desktop");
 
 let isMonthly = true;
 
-rangeInput.addEventListener("input", function (e) {
-  if (isMonthly) {
-    priceText.textContent = `$${(+e.target.value).toFixed(2)}`;
-  } else {
-    priceText.textContent = `$${((+e.target.value / 4) * 3).toFixed(2)}`;
-  }
+function getPriceValue(price, isYearly) {
+  return isYearly ? ((price / 4) * 3).toFixed(2) : price.toFixed(2);
+}
 
-  switch (e.target.value) {
-    case "8":
+function setUpPriceText(price) {
+  const priceValue = getPriceValue(price, !isMonthly);
+  priceText.textContent = `$${priceValue}`;
+}
+
+function setUpPageViews(price) {
+  switch (price) {
+    case 8:
       pageviewsText.innerHTML = "10k PAGEVIEWS";
       break;
-    case "12":
+    case 12:
       pageviewsText.innerHTML = "25k PAGEVIEWS";
       break;
-    case "16":
+    case 16:
       pageviewsText.innerHTML = "100k PAGEVIEWS";
       break;
-    case "20":
+    case 20:
       pageviewsText.innerHTML = "225k PAGEVIEWS";
       break;
-    case "24":
+    case 24:
       pageviewsText.innerHTML = "300k PAGEVIEWS";
       break;
-    case "28":
+    case 28:
       pageviewsText.innerHTML = "500k PAGEVIEWS";
       break;
-    case "32":
+    case 32:
       pageviewsText.innerHTML = "750k PAGEVIEWS";
       break;
-    case "36":
+    case 36:
       pageviewsText.innerHTML = "1M PAGEVIEWS";
       break;
     default:
       break;
   }
+}
+
+rangeInput.addEventListener("input", function (e) {
+  setUpPriceText(+e.target.value);
+  setUpPageViews(+e.target.value);
 });
 
 toggleInput.addEventListener("click", function (e) {
